@@ -1,0 +1,26 @@
+version: "3.5"
+services:
+  uscan-backend:
+    image: uscan:latest
+    restart: always
+    command: ["--rpc_urls=ws://120.133.222.90:21460","--db_path=/go/src/app/uscandb","--app_title=CoqDevnet", "--unit_display=coq", "--node_url=http://120.133.222.90:21450"]
+    volumes:
+      - ./data:/go/src/app/uscandb
+    ports:
+      - 4322:4322
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "50m"
+        max-file: "10"
+    networks:
+      - uscan-backend
+    stop_grace_period: 1m30s
+    stop_signal: SIGINT
+networks:
+   uscan-backend:
+       driver: bridge
+       ipam:
+         driver: default
+         config:
+           - subnet: 172.16.156.0/24
