@@ -1,6 +1,6 @@
 version: "3.5"
 services:
-  uscan-backend:
+  coq-devnet:
     image: uscan:latest
     restart: always
     command: ["--rpc_urls=ws://120.133.222.90:21460","--db_path=/go/src/app/uscandb","--app_title=CoqDevnet", "--unit_display=coq", "--node_url=http://120.133.222.90:21450"]
@@ -14,11 +14,11 @@ services:
         max-size: "50m"
         max-file: "10"
     networks:
-      - uscan-backend
+      - coq-devnet-local
     stop_grace_period: 1m30s
     stop_signal: SIGINT
 networks:
-   uscan-backend:
+   coq-devnet-local:
        driver: bridge
        ipam:
          driver: default
